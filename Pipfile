@@ -4,6 +4,8 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+twine = "~=1.0"
+check-manifest = "~=0.35"
 
 [packages]
 r-u-done-yet-syncthing = {path = ".",editable = true}
