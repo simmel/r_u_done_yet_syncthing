@@ -6,6 +6,7 @@ verify_ssl = true
 [dev-packages]
 twine = "~=1.0"
 check-manifest = "~=0.35"
+pytest = "~=4.0"
 
 [packages]
 r-u-done-yet-syncthing = {path = ".",editable = true}
