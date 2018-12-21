@@ -7,8 +7,10 @@ verify_ssl = true
 twine = "~=1.0"
 check-manifest = "~=0.35"
 pytest = "~=4.0"
+pytest-requests = "~=0.2"
 
 [packages]
+requests = "~=2.20"
 r-u-done-yet-syncthing = {path = ".",editable = true}
 
 [requires]
