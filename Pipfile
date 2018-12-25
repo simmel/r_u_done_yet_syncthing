@@ -7,7 +7,7 @@ verify_ssl = true
 twine = "~=1.0"
 check-manifest = "~=0.35"
 pytest = "~=4.0"
-pytest-requests = "~=0.2"
+responses = "~=0.10"
 
 [packages]
 requests = "~=2.20"
