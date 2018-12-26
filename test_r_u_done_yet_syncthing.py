@@ -20,3 +20,9 @@ def test_check_db_completion_api_down():
     # Sadly all exceptions are swallowed so we can't see that it returns False
     with pytest.raises(ConnectionError):
         check_db_completion()
+
+@responses.activate
+def test_check_db_completion_uses_auth():
+    responses.add(responses.GET, url_db_completion)
+    assert check_db_completion() == True
+    assert responses.calls[0].request.headers['X-API-Key'] == '1337'
