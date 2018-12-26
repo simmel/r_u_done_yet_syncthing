@@ -3,6 +3,9 @@
 #https://docs.syncthing.net/rest/stats-device-get.html
 #https://docs.syncthing.net/rest/db-completion-get.html
 
+def check_db_completion():
+    return True
+
 def main():
     print("Are you done yet Syncthing?")
 
