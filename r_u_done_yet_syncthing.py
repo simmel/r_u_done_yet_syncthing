@@ -7,8 +7,12 @@ import requests
 from requests.exceptions import ConnectionError
 
 def check_db_completion():
+    headers = {'X-API-Key': '1337'}
     try:
-        requests.get('http://localhost:8384/rest/db/completion')
+        requests.get(
+                'http://localhost:8384/rest/db/completion',
+                headers=headers,
+                )
     except ConnectionError:
         return False
     return True
