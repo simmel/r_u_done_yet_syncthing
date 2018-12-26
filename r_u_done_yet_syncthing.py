@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# vim: set fileencoding=utf-8 sw=4 et tw=79
 #https://forum.syncthing.net/t/how-can-i-check-a-progress-of-a-synchronization-on-a-given-host-from-a-server-side-syncthing-cli/8705
 #https://docs.syncthing.net/rest/stats-device-get.html
 #https://docs.syncthing.net/rest/db-completion-get.html
