@@ -3,11 +3,18 @@
 #https://forum.syncthing.net/t/how-can-i-check-a-progress-of-a-synchronization-on-a-given-host-from-a-server-side-syncthing-cli/8705
 #https://docs.syncthing.net/rest/stats-device-get.html
 #https://docs.syncthing.net/rest/db-completion-get.html
+import os.path
 import requests
+import xml.etree.ElementTree as ET
 from requests.exceptions import ConnectionError
 
+def get_api_key():
+    tree = ET.parse(os.path.expanduser('~/.config/syncthing/config.xml'))
+    api_key = tree.getroot().find('./gui/apikey').text
+    return api_key
+
 def check_db_completion():
-    headers = {'X-API-Key': '1337'}
+    headers = {'X-API-Key': get_api_key()}
     try:
         requests.get(
                 'http://localhost:8384/rest/db/completion',
