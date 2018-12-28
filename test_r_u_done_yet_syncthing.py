@@ -24,7 +24,7 @@ def test_check_db_completion_api_down():
 
 @responses.activate
 def test_check_db_completion_uses_auth(mocker):
-    mocker.patch.object(r_u_done_yet_syncthing, 'get_api_key', return_value='1337')
+    mocker.patch('r_u_done_yet_syncthing.API_KEY', '1337')
     responses.add(responses.GET, url_db_completion)
     assert check_db_completion() == True
     assert responses.calls[0].request.headers['X-API-Key'] == '1337'

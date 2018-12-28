@@ -8,13 +8,15 @@ import requests
 import xml.etree.ElementTree as ET
 from requests.exceptions import ConnectionError
 
+API_KEY = None
+
 def get_api_key():
     tree = ET.parse(os.path.expanduser('~/.config/syncthing/config.xml'))
     api_key = tree.getroot().find('./gui/apikey').text
     return api_key
 
 def check_db_completion():
-    headers = {'X-API-Key': get_api_key()}
+    headers = {'X-API-Key': API_KEY}
     try:
         requests.get(
                 'http://localhost:8384/rest/db/completion',
@@ -25,6 +27,10 @@ def check_db_completion():
     return True
 
 def main():
+    # Set API_KEY once
+    global API_KEY
+    API_KEY = get_api_key()
+    print(check_db_completion())
     print("Are you done yet Syncthing?")
 
 if __name__ == "__main__":
