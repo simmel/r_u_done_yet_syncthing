@@ -27,3 +27,12 @@ def test_check_db_completion_uses_auth(mocker):
     responses.add(responses.GET, url_db_completion)
     assert rudys.check_db_completion() == True
     assert responses.calls[0].request.headers['X-API-Key'] == '1337'
+
+@responses.activate
+def test_get_folders_and_devices(mocker):
+    mocker.patch('r_u_done_yet_syncthing.API_KEY', '1337')
+    responses.add(
+            responses.GET,
+            'http://localhost:8384/rest/system/config',
+            )
+    assert rudys.get_folders_and_devices() == []
