@@ -15,6 +15,15 @@ def get_api_key():
     api_key = tree.getroot().find('./gui/apikey').text
     return api_key
 
+def get_folders_and_devices():
+    headers = {'X-API-Key': API_KEY}
+    r = requests.get(
+            'http://localhost:8384/rest/system/config',
+            headers=headers,
+            )
+    folders = []
+    return folders
+
 def check_db_completion():
     headers = {'X-API-Key': API_KEY}
     try:
