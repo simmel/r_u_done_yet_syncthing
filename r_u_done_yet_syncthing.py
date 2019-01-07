@@ -39,10 +39,8 @@ def get_folders_and_devices():
                         folder["devices"],
                         )
                     )
-        if folder["id"]:
-            a["id"] = folder["id"]
-        if folder["path"]:
-            a["path"] = folder["path"]
+        for k in ("id", "path"):
+            a[k] = folder[k]
         folders.append(a)
     return folders
 
