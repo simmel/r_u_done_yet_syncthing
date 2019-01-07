@@ -32,7 +32,7 @@ def test_check_db_completion_uses_auth(mocker):
 def test_get_folders_and_devices(mocker):
     mocker.patch('r_u_done_yet_syncthing.API_KEY', '1337')
     mock_our_syncthing_id = "TOTALLY-US"
-    mock_folders = [
+    mock_system_config_folders = [
             {
                 "id": "Documents",
                 "path": "/path/to/Documents",
@@ -62,11 +62,39 @@ def test_get_folders_and_devices(mocker):
                     ],
                 },
             ]
+    mock_folders = [
+            {
+                "id": "Documents",
+                "path": "/path/to/Documents",
+                "devices": [
+                    {
+                        "deviceID": "SOMONE-ELSE",
+                        "introducedBy": ""
+                        },
+                    ],
+                },
+            {
+                "id": "Pictures",
+                "path": "/path/to/Pictures",
+                "devices": [
+                    {
+                        "deviceID": "SOMONE-ELSE",
+                        "introducedBy": ""
+                        },
+                    ],
+                },
+            ]
+    mock_system_config = {
+            "version": 28,
+            "folders": mock_folders,
+            }
 
     responses.add(
             responses.GET,
             'http://localhost:8384/rest/system/config',
+            json=mock_system_config,
+            headers={
+                'X-Syncthing-Id': mock_our_syncthing_id,
+                }
             )
-    assert rudys.get_folders_and_devices() == {
-            'devices': mock_folders,
-            }
+    assert rudys.get_folders_and_devices() == mock_folders
