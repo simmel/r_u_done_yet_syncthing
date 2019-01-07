@@ -61,6 +61,7 @@ def main():
     # Set API_KEY once
     global API_KEY
     API_KEY = get_api_key()
+    print(get_folders_and_devices())
     print(check_db_completion())
     print("Are you done yet Syncthing?")
 
