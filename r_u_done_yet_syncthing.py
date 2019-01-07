@@ -21,7 +21,29 @@ def get_folders_and_devices():
             'http://localhost:8384/rest/system/config',
             headers=headers,
             )
+    our_device_id = r.headers['X-Syncthing-Id']
+    f = r.json()
+    f = f['folders']
+    to_copy = (
+            "devices",
+            "id",
+            "path",
+            )
     folders = []
+    for folder in f:
+        a = {}
+        if folder["devices"]:
+            a["devices"] = list(
+                    filter(
+                        lambda d: d["deviceID"] != our_device_id,
+                        folder["devices"],
+                        )
+                    )
+        if folder["id"]:
+            a["id"] = folder["id"]
+        if folder["path"]:
+            a["path"] = folder["path"]
+        folders.append(a)
     return folders
 
 def check_db_completion():
