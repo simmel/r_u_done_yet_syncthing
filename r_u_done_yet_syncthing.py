@@ -24,11 +24,6 @@ def get_folders_and_devices():
     our_device_id = r.headers['X-Syncthing-Id']
     f = r.json()
     f = f['folders']
-    to_copy = (
-            "devices",
-            "id",
-            "path",
-            )
     folders = []
     for folder in f:
         a = {}
