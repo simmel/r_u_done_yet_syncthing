@@ -39,12 +39,13 @@ def get_folders_and_devices():
         folders.append(a)
     return folders
 
-def check_db_completion():
+def check_db_completion(*, deviceID, folder):
     headers = {'X-API-Key': API_KEY}
     try:
         requests.get(
                 'http://localhost:8384/rest/db/completion',
                 headers=headers,
+                params={"deviceID": deviceID, "folder": folder},
                 )
     except ConnectionError:
         return False
@@ -54,8 +55,9 @@ def main():
     # Set API_KEY once
     global API_KEY
     API_KEY = get_api_key()
-    print(get_folders_and_devices())
-    print(check_db_completion())
+    data = get_folders_and_devices()
+    print(data)
+    print(check_db_completion(deviceID=data[0]["devices"][0]["deviceID"], folder=data[0]["id"]))
     print("Are you done yet Syncthing?")
 
 if __name__ == "__main__":
