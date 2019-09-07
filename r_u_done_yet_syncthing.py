@@ -52,7 +52,7 @@ def check_db_completion(*, deviceID, folder):
         return False
     return completion.json()["completion"] == 100
 
-def check_device_lastseen():
+def check_device_lastseen(*, deviceID):
     pass
 
 def main():
