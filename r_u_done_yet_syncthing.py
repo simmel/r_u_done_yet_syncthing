@@ -57,8 +57,10 @@ def main():
     global API_KEY
     API_KEY = get_api_key()
     data = get_folders_and_devices()
-    print(data)
-    print(check_db_completion(deviceID=data[0]["devices"][0]["deviceID"], folder=data[0]["id"]))
+    for folder in data:
+        for device in folder["devices"]:
+            (deviceID, folderid) = (device["deviceID"], folder["id"])
+            print("Is folder {} from {} synced?: {}".format(folderid, deviceID, check_db_completion(deviceID=device["deviceID"], folder=folder["id"])))
     print("Are you done yet Syncthing?")
 
 if __name__ == "__main__":
