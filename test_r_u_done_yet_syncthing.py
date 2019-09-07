@@ -120,3 +120,7 @@ def test_get_folders_and_devices(mocker):
                 }
             )
     assert rudys.get_folders_and_devices() == mock_folders
+
+@responses.activate
+def test_device_lastseen():
+    rudys.check_device_lastseen()
