@@ -41,15 +41,16 @@ def get_folders_and_devices():
 
 def check_db_completion(*, deviceID, folder):
     headers = {'X-API-Key': API_KEY}
+    completion = None
     try:
-        requests.get(
+        completion = requests.get(
                 'http://localhost:8384/rest/db/completion',
                 headers=headers,
                 params={"deviceID": deviceID, "folder": folder},
                 )
     except ConnectionError:
         return False
-    return True
+    return completion.json()["completion"] == 100
 
 def main():
     # Set API_KEY once
