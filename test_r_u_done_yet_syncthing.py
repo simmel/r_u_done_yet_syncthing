@@ -11,10 +11,18 @@ db_completion_params = {
         'deviceID': 'JGWHCJ5-TBCPDOH-VYSIO3N-GPAQS6Y-YTS5Q5N-NJCDC2U-4SIMPFQ-TFJFQAS',
         'folder': 'Documents',
         }
+db_completion_response = {
+        "completion": 100,
+        "globalBytes": 1337,
+        "needBytes": 0,
+        "needDeletes": 0,
+        "needItems": 0
+        }
 
 @responses.activate
-def test_check_db_completiona():
-    responses.add(responses.GET, '{}?{}'.format(url_db_completion, urlencode(db_completion_params)))
+def test_check_db_completion():
+    responses.add(responses.GET, '{}?{}'.format(url_db_completion, urlencode(db_completion_params)),
+            json=db_completion_response)
     assert rudys.check_db_completion(deviceID=db_completion_params['deviceID'], folder=db_completion_params['folder']) == True
 
 @responses.activate
@@ -29,7 +37,8 @@ def test_check_db_completion_api_down():
 @responses.activate
 def test_check_db_completion_uses_auth(mocker):
     mocker.patch('r_u_done_yet_syncthing.API_KEY', '1337')
-    responses.add(responses.GET, '{}?{}'.format(url_db_completion, urlencode(db_completion_params)),)
+    responses.add(responses.GET, '{}?{}'.format(url_db_completion, urlencode(db_completion_params)),
+            json=db_completion_response)
     assert rudys.check_db_completion(deviceID=db_completion_params['deviceID'], folder=db_completion_params['folder']) == True
     assert responses.calls[0].request.headers['X-API-Key'] == '1337'
 
