@@ -26,6 +26,14 @@ def test_check_db_completion():
     assert rudys.check_db_completion(deviceID=db_completion_params['deviceID'], folder=db_completion_params['folder']) == True
 
 @responses.activate
+def test_check_db_completion_negative():
+    db_completion_response_negative = db_completion_response.copy()
+    db_completion_response_negative['completion'] = 99
+    responses.add(responses.GET, '{}?{}'.format(url_db_completion, urlencode(db_completion_params)),
+            json=db_completion_response_negative)
+    assert rudys.check_db_completion(deviceID=db_completion_params['deviceID'], folder=db_completion_params['folder']) == False
+
+@responses.activate
 def test_check_db_completion_api_down():
     responses.add(responses.GET, '{}?{}'.format(url_db_completion, urlencode(db_completion_params)),
                   body=ConnectionError('...'))
