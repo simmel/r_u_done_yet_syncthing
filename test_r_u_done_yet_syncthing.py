@@ -123,4 +123,6 @@ def test_get_folders_and_devices(mocker):
 
 @responses.activate
 def test_device_lastseen():
+    responses.add(responses.GET, 'http://localhost:8384/rest/stats/device')
     rudys.check_device_lastseen(deviceID=db_completion_params['deviceID'])
+    assert len(responses.calls) == 1
