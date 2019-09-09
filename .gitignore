@@ -40,3 +40,6 @@ coverage.xml
 *,cover
 .hypothesis/
 .benchmarks/
+
+# Editors
+.*.swp
