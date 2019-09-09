@@ -123,6 +123,20 @@ def test_get_folders_and_devices(mocker):
 
 @responses.activate
 def test_device_lastseen():
-    responses.add(responses.GET, 'http://localhost:8384/rest/stats/device')
-    rudys.check_device_lastseen(deviceID=db_completion_params['deviceID'])
-    assert len(responses.calls) == 1
+    import datetime
+    mocked_device_stats = {
+            '42VHOQQ-7U7TMW2-ZSCBSZN-G53FPXS-NHXRWVX-AQBPVXQ-VX5BLKO-YB6JJQW': {
+                'lastSeen': '1970-01-01T00:00:00Z',
+                'returns': False,
+                },
+            'I2FVSQQ-5I3FBXY-OBBUNP6-QKJOVVS-WSYNS3G-MNSQENV-SK2IINT-7IWJ3AH': {
+                'lastSeen': datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc).isoformat(),
+                'returns': True,
+                },
+            }
+    for device in mocked_device_stats:
+        responses.add(responses.GET, 'http://localhost:8384/rest/stats/device',
+                json={device: {k: v for k, v in mocked_device_stats[device].items() if
+                    k != 'returns' }})
+        assert rudys.check_device_lastseen(deviceID=device) == mocked_device_stats[device]['returns']
+    assert len(responses.calls) == 2
