@@ -53,7 +53,11 @@ def check_db_completion(*, deviceID, folder):
     return completion.json()["completion"] == 100
 
 def check_device_lastseen(*, deviceID):
-    pass
+    headers = {'X-API-Key': API_KEY}
+    requests.get(
+            'http://localhost:8384/rest/stats/device',
+            headers=headers,
+            )
 
 def main():
     # Set API_KEY once
