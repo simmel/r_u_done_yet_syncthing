@@ -138,5 +138,8 @@ def test_device_lastseen():
         responses.add(responses.GET, 'http://localhost:8384/rest/stats/device',
                 json={device: {k: v for k, v in mocked_device_stats[device].items() if
                     k != 'returns' }})
+    # This needs to be in two loops otherwise we will just get the first
+    # response o_O
+    for device in mocked_device_stats:
         assert rudys.check_device_lastseen(deviceID=device) == mocked_device_stats[device]['returns']
     assert len(responses.calls) == 2
