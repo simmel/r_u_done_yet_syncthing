@@ -73,7 +73,7 @@ def main():
     for folder in data:
         for device in folder["devices"]:
             (deviceID, folderid) = (device["deviceID"], folder["id"])
-            print("Is folder {} from {} synced?: {}".format(folderid, deviceID, check_db_completion(deviceID=device["deviceID"], folder=folder["id"])))
+            print("Is folder {} from {} synced?: {} Recently?: {}".format(folderid, deviceID, check_db_completion(deviceID=device["deviceID"], folder=folder["id"]), check_device_lastseen(deviceID=deviceID)))
     print("Are you done yet Syncthing?")
 
 if __name__ == "__main__":
