@@ -7,6 +7,8 @@ import os.path
 import requests
 import xml.etree.ElementTree as ET
 from requests.exceptions import ConnectionError
+import dateutil.parser
+import datetime
 
 API_KEY = None
 
@@ -54,10 +56,14 @@ def check_db_completion(*, deviceID, folder):
 
 def check_device_lastseen(*, deviceID):
     headers = {'X-API-Key': API_KEY}
-    requests.get(
+    response = requests.get(
             'http://localhost:8384/rest/stats/device',
             headers=headers,
             )
+    devices = response.json()
+    lastseen = dateutil.parser.isoparse(devices[deviceID]['lastSeen'])
+    days_ago = datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc) - datetime.timedelta(days=7)
+    return lastseen >= days_ago
 
 def main():
     # Set API_KEY once
