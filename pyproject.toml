@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "r_u_done_yet_syncthing"
+version = "0.1.0"
+description = "Are you done yet Syncthing?"
+authors = ["Simon Lundström <simmel@soy.se>"]
+license = "ISC"
+homepage = "https://github.com/simmel/r_u_done_yet_syncthing"
+repository = "https://github.com/simmel/r_u_done_yet_syncthing.git"
+
+[tool.poetry.dependencies]
+python = "^3.5"
+requests = "~=2.20"
+python-dateutil = "~=2.8"
+
+[tool.poetry.dev-dependencies]
+pytest = "~=4.0"
+responses = "~=0.10"
+pytest-mock = "~=1.10"
+
+[tool.poetry.scripts]
+r_u_done_yet_syncthing = 'r_u_done_yet_syncthing:main'
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
