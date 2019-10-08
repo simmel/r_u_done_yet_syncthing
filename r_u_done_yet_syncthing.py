@@ -46,7 +46,7 @@ def check_db_completion(*, deviceID, folder):
         completion = requests.get(
                 'http://localhost:8384/rest/db/completion',
                 headers=headers,
-                params={"deviceID": deviceID, "folder": folder},
+                params={"device": deviceID, "folder": folder},
                 )
     except ConnectionError:
         return False
